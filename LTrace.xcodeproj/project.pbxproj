@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		A11F27D824563A5800F85D15 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11F27D724563A5800F85D15 /* main.swift */; };
+		A11F27E124563A7700F85D15 /* loki.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27DF24563A7700F85D15 /* loki.metal */; };
+		A11F27E224563A7700F85D15 /* loki_header.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27E024563A7700F85D15 /* loki_header.metal */; };
+		A11F27E824563A7F00F85D15 /* object.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27E424563A7F00F85D15 /* object.metal */; };
+		A11F27E924563A7F00F85D15 /* renderer.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27E524563A7F00F85D15 /* renderer.metal */; };
+		A11F27EA24563A7F00F85D15 /* ray.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27E624563A7F00F85D15 /* ray.metal */; };
+		A11F27EB24563A7F00F85D15 /* scene.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27E724563A7F00F85D15 /* scene.metal */; };
+		A11F27EE24563A8E00F85D15 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A11F27ED24563A8E00F85D15 /* Metal.framework */; };
+		A11F27F024563B2200F85D15 /* drawTest.metal in Sources */ = {isa = PBXBuildFile; fileRef = A11F27EF24563B2200F85D15 /* drawTest.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +33,14 @@
 /* Begin PBXFileReference section */
 		A11F27D424563A5800F85D15 /* LTrace */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LTrace; sourceTree = BUILT_PRODUCTS_DIR; };
 		A11F27D724563A5800F85D15 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A11F27DF24563A7700F85D15 /* loki.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki.metal; sourceTree = "<group>"; };
+		A11F27E024563A7700F85D15 /* loki_header.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = loki_header.metal; sourceTree = "<group>"; };
+		A11F27E424563A7F00F85D15 /* object.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = object.metal; sourceTree = "<group>"; };
+		A11F27E524563A7F00F85D15 /* renderer.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = renderer.metal; sourceTree = "<group>"; };
+		A11F27E624563A7F00F85D15 /* ray.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ray.metal; sourceTree = "<group>"; };
+		A11F27E724563A7F00F85D15 /* scene.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = scene.metal; sourceTree = "<group>"; };
+		A11F27ED24563A8E00F85D15 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		A11F27EF24563B2200F85D15 /* drawTest.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = drawTest.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11F27EE24563A8E00F85D15 /* Metal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +58,11 @@
 		A11F27CB24563A5800F85D15 = {
 			isa = PBXGroup;
 			children = (
+				A11F27E324563A7F00F85D15 /* Renderer */,
+				A11F27DE24563A7700F85D15 /* Loki */,
 				A11F27D624563A5800F85D15 /* LTrace */,
 				A11F27D524563A5800F85D15 /* Products */,
+				A11F27EC24563A8D00F85D15 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +80,35 @@
 				A11F27D724563A5800F85D15 /* main.swift */,
 			);
 			path = LTrace;
+			sourceTree = "<group>";
+		};
+		A11F27DE24563A7700F85D15 /* Loki */ = {
+			isa = PBXGroup;
+			children = (
+				A11F27DF24563A7700F85D15 /* loki.metal */,
+				A11F27E024563A7700F85D15 /* loki_header.metal */,
+			);
+			path = Loki;
+			sourceTree = "<group>";
+		};
+		A11F27E324563A7F00F85D15 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				A11F27E424563A7F00F85D15 /* object.metal */,
+				A11F27E524563A7F00F85D15 /* renderer.metal */,
+				A11F27E624563A7F00F85D15 /* ray.metal */,
+				A11F27E724563A7F00F85D15 /* scene.metal */,
+				A11F27EF24563B2200F85D15 /* drawTest.metal */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		A11F27EC24563A8D00F85D15 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A11F27ED24563A8E00F85D15 /* Metal.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +169,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11F27E824563A7F00F85D15 /* object.metal in Sources */,
+				A11F27EB24563A7F00F85D15 /* scene.metal in Sources */,
+				A11F27E224563A7700F85D15 /* loki_header.metal in Sources */,
+				A11F27E124563A7700F85D15 /* loki.metal in Sources */,
+				A11F27E924563A7F00F85D15 /* renderer.metal in Sources */,
+				A11F27F024563B2200F85D15 /* drawTest.metal in Sources */,
+				A11F27EA24563A7F00F85D15 /* ray.metal in Sources */,
 				A11F27D824563A5800F85D15 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
