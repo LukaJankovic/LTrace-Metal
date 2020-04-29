@@ -8,6 +8,7 @@
 
 import Foundation
 import Metal
+import simd
 
 // Used for "printing" to a flie (Credit: NSHipster)0
 struct FileHandlerOutputStream: TextOutputStream {
@@ -26,9 +27,41 @@ struct FileHandlerOutputStream: TextOutputStream {
     }
 }
 
+// Argument struct representations
+
+struct material {
+    var diffuseColor: simd_float3;
+    var diffuseGlow:  simd_float3;
+    
+    var glow: CBool;
+}
+
+struct object {
+    var material: material;
+    var type: CInt;
+    
+    // General properties
+    var origin: simd_float3;
+    
+    // Sphere specific properties
+    var radius: CFloat;
+    
+    // Plane specific properties
+    var normal: simd_float3;
+}
+
+struct scene {
+    var objectsList: UnsafeMutablePointer<object>;
+    var size: CInt;
+}
+
+struct test {
+    var test_color: simd_float3;
+}
+
 // Constants
-var width: CInt = 200;
-var height: CInt = 100;
+var width: CInt = 1000;
+var height: CInt = 500;
 
 let framebufferSize: Int = Int(width * height * 3);
 
@@ -39,7 +72,7 @@ NSLog("Using default device: " + device.name);
 
 // Initialize kernel code, queue, etc.
 let defautlLibrary: MTLLibrary! = device.makeDefaultLibrary();
-let kernelFunction: MTLFunction! = defautlLibrary.makeFunction(name: "drawShade");
+let kernelFunction: MTLFunction! = defautlLibrary.makeFunction(name: "render");
 
 let mainQueue: MTLCommandQueue! = device.makeCommandQueue();
 let pipelineState: MTLComputePipelineState! = try device.makeComputePipelineState(function: kernelFunction);
@@ -49,12 +82,30 @@ let cmdEncoder: MTLComputeCommandEncoder! = cmdBuf.makeComputeCommandEncoder();
 
 cmdEncoder.setComputePipelineState(pipelineState);
 
+// Create scene
+var mat = material(diffuseColor: simd_float3(1, 1, 1), diffuseGlow: simd_float3(0, 0, 0), glow: false);
+var sphere = object(material: mat, type: 0, origin: simd_float3(1, 1, 1), radius: 1, normal: simd_float3(0, 0, 0));
+
+var s = scene(objectsList: &sphere, size: 1);
+
+// Test
+
+var tst = test(test_color: simd_float3(1, 0.25, 0.5));
+
+
+// End Test
+
 // Copy data to device
+/*let sceneBuf = device.makeBuffer(length: MemoryLayout<scene>.stride, options: []);
+sceneBuf?.contents().;copyMemory(from: &s, byteCount: MemoryLayout<scene>.size);*/
+
 let FBBuf = device.makeBuffer(length: Int(MemoryLayout<CInt>.stride * framebufferSize), options: [])!;
 
-cmdEncoder.setBytes(&width, length: MemoryLayout<CInt>.stride, index: 0)
-cmdEncoder.setBytes(&height, length: MemoryLayout<CInt>.stride, index: 1);
-cmdEncoder.setBuffer(FBBuf, offset: 0, index: 2)
+//cmdEncoder.setBuffer(sceneBuf, offset: 0, index: 0);
+cmdEncoder.setBytes(&tst, length: MemoryLayout<test>.stride, index: 0)
+cmdEncoder.setBytes(&width, length: MemoryLayout<CInt>.stride, index: 1);
+cmdEncoder.setBytes(&height, length: MemoryLayout<CInt>.stride, index: 2);
+cmdEncoder.setBuffer(FBBuf, offset: 0, index: 3);
 
 let threadGridSize = MTLSize(width: Int(width), height: Int(height), depth: 1);
 let threadGroupSize = MTLSize(width: pipelineState.threadExecutionWidth, height: 1, depth: 1);

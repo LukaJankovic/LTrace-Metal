@@ -15,7 +15,7 @@ using namespace metal;
 
 class intersection {
 public:
-    device object *object;
+    object object;
     float3 position;
     float3 normal;
     float t;
@@ -25,20 +25,21 @@ public:
 
 class scene {
 public:
-    device object **objectsList;
+    device object *objectsList;
     int size;
     
     intersection intersectRay(ray r) {
         bool hit = false;
         
-        object closestObj;
+        object closestObj = objectsList[0];
+        
         intersection closest;
         closest.ray = r;
         closest.t = MAXFLOAT;
         
         for (int i = 0; i < size; i++) {
-            device object *intersect_ptr = objectsList[i];
-            object intersectObj = *intersect_ptr;
+            object intersectObj = objectsList[i];
+            //object intersectObj = *intersect_ptr;
             
             float intersect_t = intersectObj.intersect(r);
             

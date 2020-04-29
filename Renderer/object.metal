@@ -22,7 +22,7 @@ public:
     
     bool glow;
     
-    material();
+    material() {};
 };
 
 class object {
