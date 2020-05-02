@@ -42,7 +42,7 @@ kernel void render(constant test *t, constant int *width, constant int *height,
     
     int idx = ((pos.y * *width) + pos.x) * 3;
     
-    test in = *t;
+    test in = t[idx];
     
     framebuffer[idx] = static_cast<int>(255.59 * in.test_color[0]);
     framebuffer[idx + 1] = static_cast<int>(255.59 * in.test_color[1]);

@@ -90,8 +90,8 @@ var s = scene(objectsList: &sphere, size: 1);
 
 // Test
 
-var tst = test(test_color: simd_float3(1, 0.25, 0.5));
-
+var c = (0...framebufferSize).map{_ in simd_float3(1, 1, 0.5) };
+var testBuf = device.makeBuffer(bytes:&c, length: Int(MemoryLayout<simd_float3>.stride * framebufferSize), options: []);
 
 // End Test
 
@@ -102,7 +102,7 @@ sceneBuf?.contents().;copyMemory(from: &s, byteCount: MemoryLayout<scene>.size);
 let FBBuf = device.makeBuffer(length: Int(MemoryLayout<CInt>.stride * framebufferSize), options: [])!;
 
 //cmdEncoder.setBuffer(sceneBuf, offset: 0, index: 0);
-cmdEncoder.setBytes(&tst, length: MemoryLayout<test>.stride, index: 0)
+cmdEncoder.setBuffer(testBuf, offset: 0, index: 0);
 cmdEncoder.setBytes(&width, length: MemoryLayout<CInt>.stride, index: 1);
 cmdEncoder.setBytes(&height, length: MemoryLayout<CInt>.stride, index: 2);
 cmdEncoder.setBuffer(FBBuf, offset: 0, index: 3);
